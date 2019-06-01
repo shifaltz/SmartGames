@@ -1,0 +1,25 @@
+package smart.games.api.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity 
+@Table(name = "tbl_jogo")
+public class Jogo {
+
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nome;
+	private float preco;
+	private int desenolvedor;
+	private int loja;
+	private int plataforma;
+	private int genero;
+	
+	
+}

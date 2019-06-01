@@ -1,0 +1,188 @@
+-- MySQL dump 10.13  Distrib 5.7.25, for Win64 (x86_64)
+--
+-- Host: localhost    Database: db_smartgames
+-- ------------------------------------------------------
+-- Server version	5.7.25-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `tbl_desenvolvedor`
+--
+
+DROP TABLE IF EXISTS `tbl_desenvolvedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_desenvolvedor` (
+  `id_desenvolvedor` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_desenvolvedor` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_desenvolvedor`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_desenvolvedor`
+--
+
+LOCK TABLES `tbl_desenvolvedor` WRITE;
+/*!40000 ALTER TABLE `tbl_desenvolvedor` DISABLE KEYS */;
+INSERT INTO `tbl_desenvolvedor` VALUES (1,'Microsoft'),(2,'Nintendo'),(3,'Capcom'),(4,'Ubisoft '),(5,'Insomniac Games'),(6,'Rockstar'),(7,'Ea'),(8,'Activision'),(9,'Warner'),(10,'Bandai Namco');
+/*!40000 ALTER TABLE `tbl_desenvolvedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_genero`
+--
+
+DROP TABLE IF EXISTS `tbl_genero`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_genero` (
+  `id_genero` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_genero` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_genero`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_genero`
+--
+
+LOCK TABLES `tbl_genero` WRITE;
+/*!40000 ALTER TABLE `tbl_genero` DISABLE KEYS */;
+INSERT INTO `tbl_genero` VALUES (1,'Tiro'),(2,'Ação'),(3,'Aventura'),(4,'Luta'),(5,'RPG'),(6,'Esportes'),(7,'Corrida'),(8,'Terror');
+/*!40000 ALTER TABLE `tbl_genero` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_jogo`
+--
+
+DROP TABLE IF EXISTS `tbl_jogo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_jogo` (
+  `id_jogo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_jogo` varchar(100) DEFAULT NULL,
+  `preco_jogo` float DEFAULT NULL,
+  `id_desenvolvedor` int(11) NOT NULL,
+  `id_loja` int(11) NOT NULL,
+  `id_plataforma` int(11) NOT NULL,
+  `id_genero` int(11) NOT NULL,
+  `imagem_jogo` varchar(225) DEFAULT NULL,
+  PRIMARY KEY (`id_jogo`),
+  KEY `id_desenvolvedor` (`id_desenvolvedor`),
+  KEY `id_loja` (`id_loja`),
+  KEY `id_genero` (`id_genero`),
+  KEY `id_plataforma` (`id_plataforma`),
+  CONSTRAINT `tbl_jogo_ibfk_1` FOREIGN KEY (`id_desenvolvedor`) REFERENCES `tbl_desenvolvedor` (`id_desenvolvedor`),
+  CONSTRAINT `tbl_jogo_ibfk_2` FOREIGN KEY (`id_loja`) REFERENCES `tbl_loja` (`id_loja`),
+  CONSTRAINT `tbl_jogo_ibfk_3` FOREIGN KEY (`id_genero`) REFERENCES `tbl_genero` (`id_genero`),
+  CONSTRAINT `tbl_jogo_ibfk_4` FOREIGN KEY (`id_plataforma`) REFERENCES `tbl_plataforma` (`id_plataforma`),
+  CONSTRAINT `tbl_jogo_ibfk_5` FOREIGN KEY (`id_plataforma`) REFERENCES `tbl_plataforma` (`id_plataforma`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_jogo`
+--
+
+LOCK TABLES `tbl_jogo` WRITE;
+/*!40000 ALTER TABLE `tbl_jogo` DISABLE KEYS */;
+INSERT INTO `tbl_jogo` VALUES (1,'Marvel Spider-Man',189.9,5,1,1,2,'homem_aranha.png'),(2,'FIFA 19',199.9,7,1,1,6,'fifa19ps4.png'),(3,'FIFA 19',199.9,7,1,2,6,'fifa19xbox.png'),(7,'Destiny 2',78.9,8,2,2,1,'destiny2.jpg'),(8,'Titanfall 2 ',79.9,7,2,2,2,'titanfall2.jpg'),(9,'Far Cry Primal',89.9,4,2,2,2,'farcry.jpg'),(10,'Hyrule Warriors',129.9,2,3,3,3,'hyrule.jpg'),(11,'L.A. Noire',349.9,2,3,3,2,'lanoire.jpg'),(12,'Pokken Tournament Dx',251.9,2,3,3,3,'pokken.jpg'),(18,'Resident Evil 2',249.9,3,1,1,8,'residentevil2.jpg'),(19,'Battlefield V',199.9,7,2,1,1,'battlefield5.jpg'),(20,'UFC 3',109.9,7,3,2,6,'ufc3.jpg'),(21,'Assassin\'s Creed Odyssey',179.9,4,1,1,2,'aco.jpg'),(22,'Hitman 2',249.9,9,2,1,1,'hitman.jpg'),(23,'Dark Souls II',199.9,10,3,2,2,'darksouls.jpg'),(24,'Marvel vs Capcom',99.9,4,1,2,4,'marvelvscapcom.jpg');
+/*!40000 ALTER TABLE `tbl_jogo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_jogo_plataforma`
+--
+
+DROP TABLE IF EXISTS `tbl_jogo_plataforma`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_jogo_plataforma` (
+  `id_jogo_plataforma` int(11) NOT NULL AUTO_INCREMENT,
+  `id_plataforma` int(11) NOT NULL,
+  `id_jogo` int(11) NOT NULL,
+  PRIMARY KEY (`id_jogo_plataforma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_jogo_plataforma`
+--
+
+LOCK TABLES `tbl_jogo_plataforma` WRITE;
+/*!40000 ALTER TABLE `tbl_jogo_plataforma` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_jogo_plataforma` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_loja`
+--
+
+DROP TABLE IF EXISTS `tbl_loja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_loja` (
+  `id_loja` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_loja` varchar(100) DEFAULT NULL,
+  `iframe` text,
+  `telefone` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_loja`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_loja`
+--
+
+LOCK TABLES `tbl_loja` WRITE;
+/*!40000 ALTER TABLE `tbl_loja` DISABLE KEYS */;
+INSERT INTO `tbl_loja` VALUES (1,'Smart Games A','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224444.06356046433!2d-81.50883554293178!3d28.481398911147302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e773d8fecdbc77%3A0xac3b2063ca5bf9e!2sOrlando%2C+Fl%C3%B3rida%2C+EUA!5e0!3m2!1spt-BR!2sbr!4v1556693171496!5m2!1spt-BR!2sbr','11 4002-8922'),(2,'Smart Games B','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8159086.26977024!2d68.74228820745503!3d3.1135288740407137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x24b599bfaafb7bbd%3A0x414509e181956289!2sMaldivas!5e0!3m2!1spt-BR!2sbr!4v1556693227321!5m2!1spt-BR!2sbr','11 9999-9999'),(3,'Smart Games C','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119096.83694159264!2d-86.91927377575718!3d21.12148864480517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4c2b05aef653db%3A0xce32b73c625fcd8a!2zQ2FuY8O6biwgUXVpbnRhbmEgUm9vLCBNw6l4aWNv!5e0!3m2!1spt-BR!2sbr!4v1556693267118!5m2!1spt-BR!2sbr','11 4529-9542');
+/*!40000 ALTER TABLE `tbl_loja` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_plataforma`
+--
+
+DROP TABLE IF EXISTS `tbl_plataforma`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_plataforma` (
+  `id_plataforma` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_plataforma` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_plataforma`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_plataforma`
+--
+
+LOCK TABLES `tbl_plataforma` WRITE;
+/*!40000 ALTER TABLE `tbl_plataforma` DISABLE KEYS */;
+INSERT INTO `tbl_plataforma` VALUES (1,'Playstation'),(2,'Xbox'),(3,'Nintendo');
+/*!40000 ALTER TABLE `tbl_plataforma` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-05-03  2:57:55

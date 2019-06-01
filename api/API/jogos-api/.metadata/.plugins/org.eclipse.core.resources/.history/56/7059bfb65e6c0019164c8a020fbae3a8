@@ -1,0 +1,5 @@
+package smart.games.api.repository;
+
+public interface JogoRepository extends JpaRepository<Jogo, Long> {
+
+}

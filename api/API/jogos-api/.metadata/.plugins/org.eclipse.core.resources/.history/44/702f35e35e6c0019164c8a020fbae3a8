@@ -1,0 +1,5 @@
+package smart.games.api.resource;
+
+public class JogoResource {
+
+}

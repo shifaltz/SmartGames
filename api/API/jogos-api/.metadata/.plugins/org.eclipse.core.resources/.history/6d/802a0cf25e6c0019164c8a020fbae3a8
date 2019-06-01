@@ -1,0 +1,60 @@
+package smart.games.api.resource;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/contatos")
+public class JogoResource {
+
+	@Autowired
+	private ContatoRepository contatoRepository;
+	
+	@GetMapping
+	public List<Contato> getContatos(){
+		return contatoRepository.findAll();
+	}
+	
+	
+	//@ResponseStatus(HttpStatus.CREATED) = retorna o código 201 
+	@PostMapping
+	public ResponseEntity<Contato> gravar(@RequestBody Contato contato, HttpServletResponse response) {
+		
+		Contato contatoSalvo = contatoRepository.save(contato);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(contatoSalvo.getId()).toUri();
+				
+		response.addHeader("Location", uri.toASCIIString());
+
+		return ResponseEntity.created(uri).body(contatoSalvo);
+	}
+	
+	@GetMapping("/{id}")
+	public Optional<Contato> getContato(@PathVariable Long id){
+		
+		return contatoRepository.findById(id);
+		
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteContato(@PathVariable Long id){	
+		
+		contatoRepository.deleteById(id);
+		
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Contato> atualizarContatos(@RequestBody Contato contato, @PathVariable Long id) {
+		
+		Contato contatoSalvo = contatoRepository.findById(id).get();
+		BeanUtils.copyProperties(contato, contatoSalvo, "id");
+		contatoRepository.save(contato);
+		
+		return ResponseEntity.ok(contatoSalvo);
+		
+	}
+
+	
+	
+}

@@ -1,0 +1,5 @@
+package smart.games.api.repository;
+
+public class JogoRepository {
+
+}
